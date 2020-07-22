@@ -1,72 +1,100 @@
-# -*- coding: utf-8 -*-
-from collections import Counter
-
 import fire
-from tqdm import tqdm
-
+import numpy as np
+import pandas as pd
+import pickle
+from scipy import sparse
+import random
+import implicit
+from khaiii import KhaiiiApi
 from arena_util import load_json
 from arena_util import write_json
-from arena_util import remove_seen
 from arena_util import most_popular
 
+random.seed(0)
 
-class GenreMostPopular:
-    def _song_mp_per_genre(self, song_meta, global_mp):
-        res = {}
+class Train:
+    def get_token(self, title: str, tokenizer):     # get_token 함수 출처: https://arena.kakao.com/forum/topics/226
+        if len(title)== 0 or title== ' ' or title == '\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000':
+            return []
 
-        for sid, song in song_meta.items():
-            for genre in song['song_gn_gnr_basket']:
-                res.setdefault(genre, []).append(sid)
+        result = tokenizer.analyze(title)
+        result = [(morph.lex, morph.tag) for split in result for morph in split.morphs]
+        return result
 
-        for genre, sids in res.items():
-            res[genre] = Counter({k: global_mp.get(int(k), 0) for k in sids})
-            res[genre] = [k for k, v in res[genre].most_common(200)]
+    def _train(self, train_json, train, val):
+        # 0
+        total_num = 707989
+        # 1
+        _, popular_song = most_popular(train_json, 'songs', 10000)
+        # 2
+        train_tag = []
+        for l in train.tags:
+            train_tag.extend(l)
 
-        return res
+        train_tag_unique = list(set(train_tag))
+        # 3
+        train_tag_dict = {}
+        for i,j in enumerate(sorted(set(train_tag))):
+            train_tag_dict[j] = i + total_num
 
-    def _generate_answers(self, song_meta_json, train, questions):
-        song_meta = {int(song["id"]): song for song in song_meta_json}
-        song_mp_counter, song_mp = most_popular(train, "songs", 200)
-        tag_mp_counter, tag_mp = most_popular(train, "tags", 100)
-        song_mp_per_genre = self._song_mp_per_genre(song_meta, song_mp_counter)
+        print("done 1")
 
-        answers = []
-        for q in tqdm(questions):
-            genre_counter = Counter()
+        train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
+        train['songtag'] = train.songs + train.tag_to_num
 
-            for sid in q["songs"]:
-                for genre in song_meta[sid]["song_gn_gnr_basket"]:
-                    genre_counter.update({genre: 1})
+        tokenizer = KhaiiiApi()
+        val['token'] = val['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
+        val['token'] = val['token'].map(lambda x: [i[0] for i in list(filter(lambda x: x[0] in train_tag_unique, x))])
+        val['tags_refined'] = val.tags + val.token
+        val['tags_refined'] = val['tags_refined'].map(lambda x: list(set(x)))
+        val['tags_refined'] = val['tags_refined'].map(lambda x: list(filter(lambda x: x in train_tag_unique, x)))
+        val['tag_to_num'] = val['tags_refined'].map(lambda x: [train_tag_dict[i] for i in x])
+        val['songtag'] = val.songs + val.tag_to_num
+        val = val.drop(['token', 'tags_refined'], axis = 1)
 
-            top_genre = genre_counter.most_common(1)
+        trainval = pd.concat([train, val], ignore_index = True)
 
-            if len(top_genre) != 0:
-                cur_songs = song_mp_per_genre[top_genre[0][0]]
+        print("done 2")
+
+        rows = []
+        for id, st in zip(trainval.id, trainval.songtag):
+            rows.extend([id] * len(st))
+
+        cols = []
+        for l in trainval.songtag:
+            cols.extend(l)
+
+        data = []
+        for i in cols:
+            if i < total_num:
+                if i in popular_song:
+                    data.append(1)
+                else:
+                    data.append(0)
             else:
-                cur_songs = song_mp
+                data.append(1)
 
-            answers.append({
-                "id": q["id"],
-                "songs": remove_seen(q["songs"], cur_songs)[:100],
-                "tags": remove_seen(q["tags"], tag_mp)[:10]
-            })
+        songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
+        songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), sorted(set(songtag_matrix.nonzero()[1]))]
 
-        return answers
+        model = implicit.als.AlternatingLeastSquares()
+        model.fit(songtag_matrix.T)
 
-    def run(self, song_meta_fname, train_fname, question_fname):
-        print("Loading song meta...")
-        song_meta_json = load_json(song_meta_fname)
+        with open('model_1.sav', 'wb') as pickle_out:
+            pickle.dump(model, pickle_out)
 
+        print("done 3")
+
+    def run(self, train_fname, question_fname):
         print("Loading train file...")
-        train_data = load_json(train_fname)
+        train_json = load_json(train_fname)
+        train_data = pd.read_json(train_fname)
 
         print("Loading question file...")
-        questions = load_json(question_fname)
+        questions = pd.read_json(question_fname)
 
-        print("Writing answers...")
-        answers = self._generate_answers(song_meta_json, train_data, questions)
-        write_json(answers, "results/results.json")
-
+        print("Generating model...")
+        self._train(train_json, train_data, questions)
 
 if __name__ == "__main__":
-    fire.Fire(GenreMostPopular)
+    fire.Fire(Train)
