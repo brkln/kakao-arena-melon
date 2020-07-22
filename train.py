@@ -24,18 +24,33 @@ class Train:
     def _train(self, train_json, train, val):
         # 0
         total_num = 707989
+        popular_num = 10000
         # 1
-        _, popular_song = most_popular(train_json, 'songs', 10000)
+        _, popular_song = most_popular(train_json, 'songs', popular_num)
+
+        popular_song_dict = {}
+        for i,j in enumerate(sorted(popular_song)):
+            popular_song_dict[i] = j
+        
+        with open("popular_song_dict.pkl", "wb") as f:
+            pickle.dump(popular_song_dict, f)
         # 2
         train_tag = []
         for l in train.tags:
             train_tag.extend(l)
 
-        train_tag_unique = list(set(train_tag))
+        train_tag_unique = sorted(set(train_tag))
         # 3
         train_tag_dict = {}
-        for i,j in enumerate(sorted(set(train_tag))):
+        for i,j in enumerate(train_tag_unique):
             train_tag_dict[j] = i + total_num
+
+        popular_train_tag_dict = {}
+        for i,j in enumerate(train_tag_unique):
+            popular_train_tag_dict[i + popular_num] = j
+        
+        with open("popular_train_tag_dict.pkl", "wb") as f:
+            pickle.dump(popular_train_tag_dict, f)
 
         print("done 1")
 
@@ -53,6 +68,13 @@ class Train:
         val = val.drop(['token', 'tags_refined'], axis = 1)
 
         trainval = pd.concat([train, val], ignore_index = True)
+
+        trainval_id_dict = {}
+        for i,j in enumerate(sorted(trainval.id.values)):
+            trainval_id_dict[j] = i
+
+        with open("trainval_id_dict.pkl", "wb") as f:
+            pickle.dump(trainval_id_dict, f)
 
         print("done 2")
 
@@ -77,11 +99,13 @@ class Train:
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), sorted(set(songtag_matrix.nonzero()[1]))]
 
+        sparse.save_npz('songtag_matrix_23.npz', songtag_matrix)
+
         model = implicit.als.AlternatingLeastSquares()
         model.fit(songtag_matrix.T)
 
-        with open('model_1.sav', 'wb') as pickle_out:
-            pickle.dump(model, pickle_out)
+        with open('model_23.sav', 'wb') as f:
+            pickle.dump(model, f)
 
         print("done 3")
 
