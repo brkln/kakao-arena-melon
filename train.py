@@ -25,8 +25,8 @@ class Train:
     def _train(self, train_json, train, val):
         # 0
         total_num = 707989
-        popular_num = 400000
-        trial = 27
+        popular_num = 707989
+        trial = 28
         # 1
         _, popular_song = most_popular(train_json, 'songs', popular_num)
 
@@ -117,4 +117,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
