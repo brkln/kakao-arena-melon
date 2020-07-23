@@ -14,8 +14,8 @@ random.seed(0)
 class Infer:
     def _generate_answers(self, val):
         # 0
-        popular_num = 10000
-        trial = 23
+        popular_num = 5000
+        trial = 24
         # 1
         with open("popular_song_dict.pkl", "rb") as f:
             popular_song_dict = pickle.load(f)
@@ -59,4 +59,3 @@ class Infer:
 
 if __name__ == "__main__":
     fire.Fire(Infer)
-    
