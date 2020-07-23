@@ -4,7 +4,9 @@ __pycache__
 
 .vscode
 
-jupyter_test.ipynb
+*.icloud
+
+*.ipynb
 .ipynb_checkpoints
 
 popular_song_dict.pkl
