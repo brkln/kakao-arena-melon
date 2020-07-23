@@ -32,8 +32,8 @@ class Infer:
         song_fill = []
         tag_fill = []
         for j in [trainval_id_dict[i] for i in val.id.values]:
-            song_fill.append([popular_song_dict[k] for k in [i for i,_ in model.rank_items(j, songtag_matrix, list(range(popular_num)))[:200]]])
-            tag_fill.append([popular_tag_dict[k] for k,_ in model.recommend(j, songtag_matrix, filter_items = range(popular_num), N = 15)])
+            song_fill.append([popular_song_dict[k] for k,_ in model.recommend(j, songtag_matrix, filter_items = range(popular_num, songtag_matrix.shape[1]), N = 200)])
+            tag_fill.append([popular_tag_dict[k] for k in [i for i,_ in model.rank_items(j, songtag_matrix, list(range(popular_num, songtag_matrix.shape[1])))[:15]]])
 
         print("done 2")
     
