@@ -44,7 +44,7 @@ class Infer:
                 "songs": remove_seen(val.songs.values[i], song_fill[i])[:100],
                 "tags": remove_seen(val.tags.values[i], tag_fill[i])[:10]
             })
-            
+
         print("done 3")
 
         return answers
@@ -59,3 +59,4 @@ class Infer:
 
 if __name__ == "__main__":
     fire.Fire(Infer)
+    
