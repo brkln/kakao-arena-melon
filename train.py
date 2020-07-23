@@ -26,6 +26,7 @@ class Train:
         # 0
         total_num = 707989
         popular_num = 10000
+        trial = 23
         # 1
         _, popular_song = most_popular(train_json, 'songs', popular_num)
 
@@ -46,12 +47,12 @@ class Train:
         for i,j in enumerate(train_tag_unique):
             train_tag_dict[j] = i + total_num
 
-        popular_train_tag_dict = {}
+        popular_tag_dict = {}
         for i,j in enumerate(train_tag_unique):
-            popular_train_tag_dict[i + popular_num] = j
+            popular_tag_dict[i + popular_num] = j
         
-        with open("popular_train_tag_dict.pkl", "wb") as f:
-            pickle.dump(popular_train_tag_dict, f)
+        with open("popular_tag_dict.pkl", "wb") as f:
+            pickle.dump(popular_tag_dict, f)
 
         print("done 1")
 
@@ -98,14 +99,15 @@ class Train:
                 data.append(1)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
-        songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), sorted(set(songtag_matrix.nonzero()[1]))]
+        songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
+        songtag_matrix = songtag_matrix[:, sorted(set(songtag_matrix.nonzero()[1]))]
 
-        sparse.save_npz('songtag_matrix_23.npz', songtag_matrix)
+        sparse.save_npz('songtag_matrix_{}.npz'.format(trial), songtag_matrix)
 
         model = implicit.als.AlternatingLeastSquares()
         model.fit(songtag_matrix.T)
 
-        with open('model_23.sav', 'wb') as f:
+        with open('model_{}.sav'.format(trial), 'wb') as f:
             pickle.dump(model, f)
 
         print("done 3")
