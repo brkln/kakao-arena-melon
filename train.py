@@ -14,7 +14,7 @@ from arena_util import most_popular
 random.seed(0)
 
 class Train:
-    def get_token(self, title: str, tokenizer):     # get_token 함수 출처: https://arena.kakao.com/forum/topics/226
+    def get_token(self, title, tokenizer):     # get_token 함수 출처: https://arena.kakao.com/forum/topics/226
         if len(title)== 0 or title== ' ' or title == '\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000':
             return []
 
