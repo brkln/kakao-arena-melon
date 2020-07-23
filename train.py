@@ -56,10 +56,12 @@ class Train:
 
         print("done 1")
 
+        train['songs'] = train['songs'].map(lambda x: list(filter(lambda x: x in popular_song, x)))
         train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
         train['songtag'] = train.songs + train.tag_to_num
 
         tokenizer = KhaiiiApi()
+        val['songs'] = val['songs'].map(lambda x: list(filter(lambda x: x in popular_song, x)))
         val['token'] = val['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
         val['token'] = val['token'].map(lambda x: [i[0] for i in list(filter(lambda x: x[0] in train_tag_unique, x))])
         val['tags_refined'] = val.tags + val.token
@@ -88,15 +90,7 @@ class Train:
         for l in trainval.songtag:
             cols.extend(l)
 
-        data = []
-        for i in cols:
-            if i < total_num:
-                if i in popular_song:
-                    data.append(1)
-                else:
-                    data.append(0)
-            else:
-                data.append(1)
+        data = [1] * len(cols)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
