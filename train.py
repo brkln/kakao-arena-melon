@@ -56,12 +56,10 @@ class Train:
 
         print("done 1")
 
-        train['songs'] = train['songs'].map(lambda x: list(filter(lambda x: x in popular_song, x)))
         train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
         train['songtag'] = train.songs + train.tag_to_num
 
         tokenizer = KhaiiiApi()
-        val['songs'] = val['songs'].map(lambda x: list(filter(lambda x: x in popular_song, x)))
         val['token'] = val['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
         val['token'] = val['token'].map(lambda x: [i[0] for i in list(filter(lambda x: x[0] in train_tag_unique, x))])
         val['tags_refined'] = val.tags + val.token
@@ -94,7 +92,7 @@ class Train:
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
-        songtag_matrix = songtag_matrix[:, sorted(set(songtag_matrix.nonzero()[1]))]
+        songtag_matrix = songtag_matrix[:, sorted(popular_song) + list(range(total_num, songtag_matrix.shape[1]))]
 
         sparse.save_npz('songtag_matrix_{}.npz'.format(trial), songtag_matrix)
 
