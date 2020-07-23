@@ -25,7 +25,7 @@ class Train:
     def _train(self, train_json, train, val):
         # 0
         total_num = 707989
-        popular_num = 707989
+        popular_num = 615142
         trial = 28
         # 1
         _, popular_song = most_popular(train_json, 'songs', popular_num)
