@@ -12,3 +12,4 @@ popular_tag_dict.pkl
 trainval_id_dict.pkl
 *.npz
 *.sav
+*.json
