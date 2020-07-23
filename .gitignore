@@ -1,6 +1,14 @@
 res
 arena_data
 __pycache__
+
+.vscode
+
 jupyter_test.ipynb
 .ipynb_checkpoints
-.vscode
+
+popular_song_dict.pkl
+popular_tag_dict.pkl
+trainval_id_dict.pkl
+*.npz
+*.sav
