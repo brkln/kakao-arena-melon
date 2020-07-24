@@ -27,7 +27,7 @@ class Train:
         total_num = 707989
         popular_num_song = 615142        # train 데이터 내 곡 개수 615142개
         popular_num_tag = 10000
-        trial = 37
+        trial = 38
         # 1
         train_tag = []
         for l in train.tags:
@@ -69,6 +69,16 @@ class Train:
         song_1800 = popular_song[1700:1800]
         song_1900 = popular_song[1800:1900]
         song_2000 = popular_song[1900:2000]
+        song_2100 = popular_song[2000:2100]
+        song_2200 = popular_song[2100:2200]
+        song_2300 = popular_song[2200:2300]
+        song_2400 = popular_song[2300:2400]
+        song_2500 = popular_song[2400:2500]
+        song_2600 = popular_song[2500:2600]
+        song_2700 = popular_song[2600:2700]
+        song_2800 = popular_song[2700:2800]
+        song_2900 = popular_song[2800:2900]
+        song_3000 = popular_song[2900:3000]
         tag_100 = popular_tag[:100]
         tag_200 = popular_tag[100:200]
         tag_300 = popular_tag[200:300]
@@ -79,8 +89,16 @@ class Train:
         tag_800 = popular_tag[700:800]
         tag_900 = popular_tag[800:900]
         tag_1000 = popular_tag[900:1000]
-
-        print(tag_100[:10])
+        tag_1100 = popular_tag[1000:1100]
+        tag_1200 = popular_tag[1100:1200]
+        tag_1300 = popular_tag[1200:1300]
+        tag_1400 = popular_tag[1300:1400]
+        tag_1500 = popular_tag[1400:1500]
+        tag_1600 = popular_tag[1500:1600]
+        tag_1700 = popular_tag[1600:1700]
+        tag_1800 = popular_tag[1700:1800]
+        tag_1900 = popular_tag[1800:1900]
+        tag_2000 = popular_tag[1900:2000]
 
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
@@ -166,28 +184,68 @@ class Train:
                     data.append(190)
                 elif i in song_2000:
                     data.append(200)
-                else:
+                elif i in song_2100:
                     data.append(210)
+                elif i in song_2200:
+                    data.append(220)
+                elif i in song_2300:
+                    data.append(230)
+                elif i in song_2400:
+                    data.append(240)
+                elif i in song_2500:
+                    data.append(250)
+                elif i in song_2600:
+                    data.append(260)
+                elif i in song_2700:
+                    data.append(270)
+                elif i in song_2800:
+                    data.append(280)
+                elif i in song_2900:
+                    data.append(290)
+                elif i in song_3000:
+                    data.append(300)
+                else:
+                    data.append(310)
             else:
                 if i in tag_100:
-                    data.append(110)
+                    data.append(210)
                 elif i in tag_200:
-                    data.append(100)
+                    data.append(200)
                 elif i in tag_300:
-                    data.append(90)
+                    data.append(190)
                 elif i in tag_400:
-                    data.append(80)
+                    data.append(180)
                 elif i in tag_500:
-                    data.append(70)
+                    data.append(170)
                 elif i in tag_600:
-                    data.append(60)
+                    data.append(160)
                 elif i in tag_700:
-                    data.append(50)
+                    data.append(150)
                 elif i in tag_800:
-                    data.append(40)
+                    data.append(140)
                 elif i in tag_900:
-                    data.append(30)
+                    data.append(130)
                 elif i in tag_1000:
+                    data.append(120)
+                elif i in tag_1100:
+                    data.append(110)
+                elif i in tag_1200:
+                    data.append(100)
+                elif i in tag_1300:
+                    data.append(90)
+                elif i in tag_1400:
+                    data.append(80)
+                elif i in tag_1500:
+                    data.append(70)
+                elif i in tag_1600:
+                    data.append(60)
+                elif i in tag_1700:
+                    data.append(50)
+                elif i in tag_1800:
+                    data.append(40)
+                elif i in tag_1900:
+                    data.append(30)
+                elif i in tag_2000:
                     data.append(20)
                 else:
                     data.append(10)
@@ -219,4 +277,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
