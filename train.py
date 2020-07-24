@@ -26,7 +26,7 @@ class Train:
         # 0
         total_num = 707989
         popular_num = 615142        # train 데이터 내 곡 개수 615142개
-        trial = 32
+        trial = 33
         # 1
         _, popular_song = most_popular(train_json, 'songs', popular_num)
         song_100 = popular_song[:100]
@@ -34,6 +34,21 @@ class Train:
         song_300 = popular_song[200:300]
         song_400 = popular_song[300:400]
         song_500 = popular_song[400:500]
+        song_600 = popular_song[500:600]
+        song_700 = popular_song[600:700]
+        song_800 = popular_song[700:800]
+        song_900 = popular_song[800:900]
+        song_1000 = popular_song[900:1000]
+        song_1100 = popular_song[1000:1100]
+        song_1200 = popular_song[1100:1200]
+        song_1300 = popular_song[1200:1300]
+        song_1400 = popular_song[1300:1400]
+        song_1500 = popular_song[1400:1500]
+        song_1600 = popular_song[1500:1600]
+        song_1700 = popular_song[1600:1700]
+        song_1800 = popular_song[1700:1800]
+        song_1900 = popular_song[1800:1900]
+        song_2000 = popular_song[1900:2000]
 
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
@@ -96,17 +111,47 @@ class Train:
         data = []
         for i in cols:
             if i in song_100:
-                data.append(1)
+                data.append(10)
             elif i in song_200:
-                data.append(2)
+                data.append(20)
             elif i in song_300:
-                data.append(4)
+                data.append(30)
             elif i in song_400:
-                data.append(8)
+                data.append(40)
             elif i in song_500:
-                data.append(16)
+                data.append(50)
+            elif i in song_600:
+                data.append(60)
+            elif i in song_700:
+                data.append(70)
+            elif i in song_800:
+                data.append(80)
+            elif i in song_900:
+                data.append(90)
+            elif i in song_1000:
+                data.append(100)
+            elif i in song_1100:
+                data.append(110)
+            elif i in song_1200:
+                data.append(120)
+            elif i in song_1300:
+                data.append(130)
+            elif i in song_1400:
+                data.append(140)
+            elif i in song_1500:
+                data.append(150)
+            elif i in song_1600:
+                data.append(160)
+            elif i in song_1700:
+                data.append(170)
+            elif i in song_1800:
+                data.append(180)
+            elif i in song_1900:
+                data.append(190)
+            elif i in song_2000:
+                data.append(200)
             else:
-                data.append(32)
+                data.append(210)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -135,4 +180,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
