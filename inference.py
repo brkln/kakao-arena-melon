@@ -14,8 +14,8 @@ random.seed(0)
 class Infer:
     def _generate_answers(self, val):
         # 0
-        popular_num = 615142
-        trial = 33
+        popular_num_song = 615142
+        trial = 34
         # 1
         with open("popular_song_dict.pkl", "rb") as f:
             popular_song_dict = pickle.load(f)
@@ -32,8 +32,8 @@ class Infer:
         song_fill = []
         tag_fill = []
         for j in [trainval_id_dict[i] for i in val.id.values]:
-            song_fill.append([popular_song_dict[k] for k,_ in model.recommend(j, songtag_matrix, filter_items = range(popular_num, songtag_matrix.shape[1]), N = 200)])
-            tag_fill.append([popular_tag_dict[k] for k in [i for i,_ in model.rank_items(j, songtag_matrix, list(range(popular_num, songtag_matrix.shape[1])))[:15]]])
+            song_fill.append([popular_song_dict[k] for k,_ in model.recommend(j, songtag_matrix, filter_items = range(popular_num_song, songtag_matrix.shape[1]), N = 200)])
+            tag_fill.append([popular_tag_dict[k] for k in [i for i,_ in model.rank_items(j, songtag_matrix, list(range(popular_num_song, songtag_matrix.shape[1])))[:15]]])
 
         print("done 2")
     
@@ -59,4 +59,3 @@ class Infer:
 
 if __name__ == "__main__":
     fire.Fire(Infer)
-    

@@ -25,10 +25,30 @@ class Train:
     def _train(self, train_json, train, val):
         # 0
         total_num = 707989
-        popular_num = 615142        # train 데이터 내 곡 개수 615142개
-        trial = 33
+        popular_num_song = 615142        # train 데이터 내 곡 개수 615142개
+        popular_num_tag = 10000
+        trial = 34
         # 1
-        _, popular_song = most_popular(train_json, 'songs', popular_num)
+        train_tag = []
+        for l in train.tags:
+            train_tag.extend(l)
+
+        train_tag_unique = sorted(set(train_tag))
+        # 2
+        train_tag_dict = {}
+        for i,j in enumerate(train_tag_unique):
+            train_tag_dict[j] = i + total_num
+
+        popular_tag_dict = {}
+        for i,j in enumerate(train_tag_unique):
+            popular_tag_dict[i + popular_num_song] = j
+        
+        with open("popular_tag_dict.pkl", "wb") as f:
+            pickle.dump(popular_tag_dict, f)
+        # 3
+        _, popular_song = most_popular(train_json, 'songs', popular_num_song)
+        _, popular_tag = most_popular(train_json, 'tags', popular_num_tag)
+        popular_tag = [train_tag_dict[i] for i in popular_tag]
         song_100 = popular_song[:100]
         song_200 = popular_song[100:200]
         song_300 = popular_song[200:300]
@@ -49,6 +69,16 @@ class Train:
         song_1800 = popular_song[1700:1800]
         song_1900 = popular_song[1800:1900]
         song_2000 = popular_song[1900:2000]
+        tag_100 = popular_tag[:100]
+        tag_200 = popular_tag[100:200]
+        tag_300 = popular_tag[200:300]
+        tag_400 = popular_tag[300:400]
+        tag_500 = popular_tag[400:500]
+        tag_600 = popular_tag[500:600]
+        tag_700 = popular_tag[600:700]
+        tag_800 = popular_tag[700:800]
+        tag_900 = popular_tag[800:900]
+        tag_1000 = popular_tag[900:1000]
 
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
@@ -56,23 +86,6 @@ class Train:
         
         with open("popular_song_dict.pkl", "wb") as f:
             pickle.dump(popular_song_dict, f)
-        # 2
-        train_tag = []
-        for l in train.tags:
-            train_tag.extend(l)
-
-        train_tag_unique = sorted(set(train_tag))
-        # 3
-        train_tag_dict = {}
-        for i,j in enumerate(train_tag_unique):
-            train_tag_dict[j] = i + total_num
-
-        popular_tag_dict = {}
-        for i,j in enumerate(train_tag_unique):
-            popular_tag_dict[i + popular_num] = j
-        
-        with open("popular_tag_dict.pkl", "wb") as f:
-            pickle.dump(popular_tag_dict, f)
 
         print("done 1")
 
@@ -110,48 +123,72 @@ class Train:
 
         data = []
         for i in cols:
-            if i in song_100:
-                data.append(10)
-            elif i in song_200:
-                data.append(20)
-            elif i in song_300:
-                data.append(30)
-            elif i in song_400:
-                data.append(40)
-            elif i in song_500:
-                data.append(50)
-            elif i in song_600:
-                data.append(60)
-            elif i in song_700:
-                data.append(70)
-            elif i in song_800:
-                data.append(80)
-            elif i in song_900:
-                data.append(90)
-            elif i in song_1000:
-                data.append(100)
-            elif i in song_1100:
-                data.append(110)
-            elif i in song_1200:
-                data.append(120)
-            elif i in song_1300:
-                data.append(130)
-            elif i in song_1400:
-                data.append(140)
-            elif i in song_1500:
-                data.append(150)
-            elif i in song_1600:
-                data.append(160)
-            elif i in song_1700:
-                data.append(170)
-            elif i in song_1800:
-                data.append(180)
-            elif i in song_1900:
-                data.append(190)
-            elif i in song_2000:
-                data.append(200)
+            if i < total_num:
+                if i in song_100:
+                    data.append(10)
+                elif i in song_200:
+                    data.append(20)
+                elif i in song_300:
+                    data.append(30)
+                elif i in song_400:
+                    data.append(40)
+                elif i in song_500:
+                    data.append(50)
+                elif i in song_600:
+                    data.append(60)
+                elif i in song_700:
+                    data.append(70)
+                elif i in song_800:
+                    data.append(80)
+                elif i in song_900:
+                    data.append(90)
+                elif i in song_1000:
+                    data.append(100)
+                elif i in song_1100:
+                    data.append(110)
+                elif i in song_1200:
+                    data.append(120)
+                elif i in song_1300:
+                    data.append(130)
+                elif i in song_1400:
+                    data.append(140)
+                elif i in song_1500:
+                    data.append(150)
+                elif i in song_1600:
+                    data.append(160)
+                elif i in song_1700:
+                    data.append(170)
+                elif i in song_1800:
+                    data.append(180)
+                elif i in song_1900:
+                    data.append(190)
+                elif i in song_2000:
+                    data.append(200)
+                else:
+                    data.append(210)
             else:
-                data.append(210)
+                if i in tag_100:
+                    data.append(10)
+                elif i in tag_200:
+                    data.append(20)
+                elif i in tag_300:
+                    data.append(30)
+                elif i in tag_400:
+                    data.append(40)
+                elif i in tag_500:
+                    data.append(50)
+                elif i in tag_600:
+                    data.append(60)
+                elif i in tag_700:
+                    data.append(70)
+                elif i in tag_800:
+                    data.append(80)
+                elif i in tag_900:
+                    data.append(90)
+                elif i in tag_1000:
+                    data.append(100)
+                else:
+                    data.append(110)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -180,4 +217,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
