@@ -26,7 +26,7 @@ class Train:
         # 0
         total_num = 707989
         popular_num = 615142
-        trial = 28
+        trial = 29
         # 1
         _, popular_song = most_popular(train_json, 'songs', popular_num)
 
@@ -96,7 +96,7 @@ class Train:
 
         sparse.save_npz('songtag_matrix_{}.npz'.format(trial), songtag_matrix)
 
-        model = implicit.als.AlternatingLeastSquares()
+        model = implicit.als.AlternatingLeastSquares(iterations = 150)
         model.fit(songtag_matrix.T)
 
         with open('model_{}.sav'.format(trial), 'wb') as f:
@@ -117,4 +117,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
