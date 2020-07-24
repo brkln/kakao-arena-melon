@@ -27,7 +27,7 @@ class Train:
         total_num = 707989
         popular_num_song = 615142        # train 데이터 내 곡 개수 615142개
         popular_num_tag = 10000
-        trial = 34
+        trial = 37
         # 1
         train_tag = []
         for l in train.tags:
@@ -79,6 +79,8 @@ class Train:
         tag_800 = popular_tag[700:800]
         tag_900 = popular_tag[800:900]
         tag_1000 = popular_tag[900:1000]
+
+        print(tag_100[:10])
 
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
@@ -168,27 +170,27 @@ class Train:
                     data.append(210)
             else:
                 if i in tag_100:
-                    data.append(10)
+                    data.append(110)
                 elif i in tag_200:
-                    data.append(20)
+                    data.append(100)
                 elif i in tag_300:
-                    data.append(30)
+                    data.append(90)
                 elif i in tag_400:
-                    data.append(40)
+                    data.append(80)
                 elif i in tag_500:
-                    data.append(50)
+                    data.append(70)
                 elif i in tag_600:
                     data.append(60)
                 elif i in tag_700:
-                    data.append(70)
+                    data.append(50)
                 elif i in tag_800:
-                    data.append(80)
+                    data.append(40)
                 elif i in tag_900:
-                    data.append(90)
+                    data.append(30)
                 elif i in tag_1000:
-                    data.append(100)
+                    data.append(20)
                 else:
-                    data.append(110)
+                    data.append(10)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -217,4 +219,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
