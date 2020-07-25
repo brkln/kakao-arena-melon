@@ -132,66 +132,66 @@ class Train:
                 if i in song_100:
                     data.append(1)
                 elif i in song_200:
-                    data.append(2)
+                    data.append(3)
                 elif i in song_300:
-                    data.append(4)
+                    data.append(5)
                 elif i in song_400:
-                    data.append(8)
+                    data.append(7)
                 elif i in song_500:
-                    data.append(16)
+                    data.append(9)
                 elif i in song_600:
-                    data.append(32)
+                    data.append(11)
                 elif i in song_700:
-                    data.append(64)
+                    data.append(13)
                 elif i in song_800:
-                    data.append(128)
+                    data.append(15)
                 elif i in song_900:
-                    data.append(256)
+                    data.append(17)
                 elif i in song_1000:
-                    data.append(512)
+                    data.append(19)
                 elif i in song_1100:
-                    data.append(1024)
+                    data.append(21)
                 elif i in song_1200:
-                    data.append(2048)
+                    data.append(23)
                 elif i in song_1300:
-                    data.append(4096)
+                    data.append(25)
                 elif i in song_1400:
-                    data.append(4096)
+                    data.append(27)
                 elif i in song_1500:
-                    data.append(4096)
+                    data.append(29)
                 elif i in song_1600:
-                    data.append(4096)
+                    data.append(31)
                 elif i in song_1700:
-                    data.append(4096)
+                    data.append(33)
                 elif i in song_1800:
-                    data.append(4096)
+                    data.append(35)
                 elif i in song_1900:
-                    data.append(4096)
+                    data.append(37)
                 elif i in song_2000:
-                    data.append(4096)
+                    data.append(39)
                 else:
-                    data.append(4096)
+                    data.append(41)
             else:
                 if i in tag_100:
-                    data.append(1024)
+                    data.append(21)
                 elif i in tag_200:
-                    data.append(512)
+                    data.append(19)
                 elif i in tag_300:
-                    data.append(256)
+                    data.append(17)
                 elif i in tag_400:
-                    data.append(128)
+                    data.append(15)
                 elif i in tag_500:
-                    data.append(64)
+                    data.append(13)
                 elif i in tag_600:
-                    data.append(32)
+                    data.append(11)
                 elif i in tag_700:
-                    data.append(16)
+                    data.append(9)
                 elif i in tag_800:
-                    data.append(8)
+                    data.append(7)
                 elif i in tag_900:
-                    data.append(4)
+                    data.append(5)
                 elif i in tag_1000:
-                    data.append(2)
+                    data.append(3)
                 else:
                     data.append(1)
 
@@ -222,4 +222,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
