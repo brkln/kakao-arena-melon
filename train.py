@@ -100,7 +100,7 @@ class Train:
         for i in cols:
             if i < total_num:
                 if i in popular_song[:10]:
-                    data.append(100000)
+                    data.append(0.1)
                 # elif i in popular_song[10:20]:
                 #     data.append(20)
                 # elif i in popular_song[20:30]:
@@ -140,10 +140,10 @@ class Train:
                 # elif i in popular_song[190:200]:
                 #     data.append(20)
                 else:
-                    data.append(100000)
+                    data.append(0.1)
             else:
                 if i in popular_tag[:10]:
-                    data.append(100000)
+                    data.append(0.1)
                 # elif i in popular_tag[10:20]:
                 #     data.append(20)
                 # elif i in popular_tag[20:30]:
@@ -163,7 +163,7 @@ class Train:
                 # elif i in popular_tag[90:100]:
                 #     data.append(20)
                 else:
-                    data.append(100000)
+                    data.append(0.1)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
