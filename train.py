@@ -99,24 +99,24 @@ class Train:
         data = []
         for i in cols:
             if i < total_num:
-                if i in popular_song[:50]:
-                    data.append(10)
-                elif i in popular_song[50:100]:
-                    data.append(30)
-                elif i in popular_song[100:200]:
-                    data.append(50)
-                elif i in popular_song[200:400]:
-                    data.append(70)
-                elif i in popular_song[400:800]:
-                    data.append(90)
-                elif i in popular_song[800:1600]:
-                    data.append(110)
-                elif i in popular_song[1600:3200]:
-                    data.append(130)
-                elif i in popular_song[3200:6400]:
-                    data.append(150)
-                # elif i in popular_song[340:550]:
-                #     data.append(90)
+                if i in popular_song[:10]:
+                    data.append(20)
+                elif i in popular_song[10:20]:
+                    data.append(40)
+                elif i in popular_song[20:40]:
+                    data.append(60)
+                elif i in popular_song[40:80]:
+                    data.append(80)
+                elif i in popular_song[80:160]:
+                    data.append(100)
+                elif i in popular_song[160:320]:
+                    data.append(120)
+                elif i in popular_song[320:640]:
+                    data.append(140)
+                elif i in popular_song[640:1280]:
+                    data.append(160)
+                elif i in popular_song[1280:2560]:
+                    data.append(180)
                 # elif i in popular_song[550:890]:
                 #     data.append(100)
                 # elif i in popular_song[4000:1440]:
@@ -140,30 +140,30 @@ class Train:
                 # elif i in popular_song[19000:20000]:
                 #     data.append(200)
                 else:
-                    data.append(170)
+                    data.append(200)
             else:
                 if i in popular_tag[:10]:
-                    data.append(170)
-                # elif i in popular_tag[10:20]:
-                #     data.append(100)
-                # elif i in popular_tag[20:30]:
-                #     data.append(90)
-                # elif i in popular_tag[30:50]:
-                #     data.append(80)
-                # elif i in popular_tag[50:80]:
-                #     data.append(70)
-                # elif i in popular_tag[80:130]:
-                #     data.append(60)
-                # elif i in popular_tag[130:210]:
-                #     data.append(50)
-                # elif i in popular_tag[210:340]:
-                #     data.append(40)
-                # elif i in popular_tag[340:550]:
-                #     data.append(30)
+                    data.append(200)
+                elif i in popular_tag[10:20]:
+                    data.append(180)
+                elif i in popular_tag[20:40]:
+                    data.append(160)
+                elif i in popular_tag[40:80]:
+                    data.append(140)
+                elif i in popular_tag[80:160]:
+                    data.append(120)
+                elif i in popular_tag[160:320]:
+                    data.append(100)
+                elif i in popular_tag[320:640]:
+                    data.append(80)
+                elif i in popular_tag[640:1280]:
+                    data.append(60)
+                elif i in popular_tag[1280:2560]:
+                    data.append(40)
                 # elif i in popular_tag[550:890]:
                 #     data.append(20)
                 else:
-                    data.append(170)
+                    data.append(20)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -192,4 +192,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
