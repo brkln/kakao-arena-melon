@@ -24,10 +24,15 @@ class Train:
 
     def _train(self, train_json, train, val):
         # 0
+        total_song = []
+        for l in train.songs:
+            total_song.extend(l)
+        total_song = set(total_song)
+
         total_num = 707989
-        popular_num_song = 615142        # train 데이터 내 곡 개수 615142개
+        popular_num_song = len(total_song)
         popular_num_tag = 10000
-        trial = 37
+        trial = 40
         # 1
         train_tag = []
         for l in train.tags:
@@ -219,4 +224,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
