@@ -60,3 +60,4 @@ class Infer:
 
 if __name__ == "__main__":
     fire.Fire(Infer)
+    
