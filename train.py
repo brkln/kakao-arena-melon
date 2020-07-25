@@ -122,36 +122,36 @@ class Train:
                 elif i in popular_song[100:110]:
                     data.append(110)
                 elif i in popular_song[110:120]:
-                    data.append(120)
+                    data.append(100)
                 elif i in popular_song[120:130]:
-                    data.append(130)
+                    data.append(90)
                 elif i in popular_song[130:140]:
-                    data.append(140)
+                    data.append(80)
                 elif i in popular_song[140:150]:
-                    data.append(150)
+                    data.append(70)
                 elif i in popular_song[150:160]:
-                    data.append(160)
+                    data.append(60)
                 elif i in popular_song[160:170]:
-                    data.append(170)
+                    data.append(50)
                 elif i in popular_song[170:180]:
-                    data.append(180)
+                    data.append(40)
                 elif i in popular_song[180:190]:
-                    data.append(190)
+                    data.append(30)
                 elif i in popular_song[190:200]:
-                    data.append(200)
+                    data.append(20)
                 else:
-                    data.append(210)
+                    data.append(10)
             else:
                 if i in popular_tag[:10]:
-                    data.append(110)
+                    data.append(10)
                 elif i in popular_tag[10:20]:
-                    data.append(100)
+                    data.append(20)
                 elif i in popular_tag[20:30]:
-                    data.append(90)
+                    data.append(30)
                 elif i in popular_tag[30:40]:
-                    data.append(80)
+                    data.append(40)
                 elif i in popular_tag[40:50]:
-                    data.append(70)
+                    data.append(50)
                 elif i in popular_tag[50:60]:
                     data.append(60)
                 elif i in popular_tag[60:70]:
@@ -192,4 +192,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
