@@ -173,27 +173,27 @@ class Train:
                     data.append(410)
             else:
                 if i in tag_100:
-                    data.append(210)
+                    data.append(410)
                 elif i in tag_200:
-                    data.append(190)
+                    data.append(410)
                 elif i in tag_300:
-                    data.append(170)
+                    data.append(410)
                 elif i in tag_400:
-                    data.append(150)
+                    data.append(410)
                 elif i in tag_500:
-                    data.append(130)
+                    data.append(410)
                 elif i in tag_600:
-                    data.append(110)
+                    data.append(410)
                 elif i in tag_700:
-                    data.append(90)
+                    data.append(410)
                 elif i in tag_800:
-                    data.append(70)
+                    data.append(410)
                 elif i in tag_900:
-                    data.append(50)
+                    data.append(410)
                 elif i in tag_1000:
-                    data.append(30)
+                    data.append(410)
                 else:
-                    data.append(10)
+                    data.append(410)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -222,4 +222,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
