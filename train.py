@@ -27,7 +27,7 @@ class Train:
         total_num = 707989
         popular_num_song = 615142        # train 데이터 내 곡 개수 615142개
         popular_num_tag = 10000
-        trial = 37
+        trial = 39
         # 1
         train_tag = []
         for l in train.tags:
@@ -198,7 +198,7 @@ class Train:
 
         sparse.save_npz('songtag_matrix_{}.npz'.format(trial), songtag_matrix)
 
-        model = implicit.als.AlternatingLeastSquares()
+        model = implicit.lmf.LogisticMatrixFactorization()
         model.fit(songtag_matrix.T)
 
         with open('model_{}.sav'.format(trial), 'wb') as f:
@@ -219,4 +219,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
