@@ -24,6 +24,7 @@ class Infer:
         with open("trainval_id_dict.pkl", "rb") as f:
             trainval_id_dict = pickle.load(f)
         songtag_matrix = sparse.load_npz('songtag_matrix_{}.npz'.format(trial))
+        songtag_matrix = songtag_matrix.tocsr()
         with open('model_{}.sav'.format(trial), 'rb') as f:
             model = pickle.load(f)
 
