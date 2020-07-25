@@ -85,8 +85,6 @@ class Train:
         tag_900 = popular_tag[800:900]
         tag_1000 = popular_tag[900:1000]
 
-        print(tag_100[:10])
-
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
             popular_song_dict[i] = j
@@ -132,70 +130,70 @@ class Train:
         for i in cols:
             if i < total_num:
                 if i in song_100:
-                    data.append(10)
+                    data.append(1)
                 elif i in song_200:
-                    data.append(20)
+                    data.append(2)
                 elif i in song_300:
-                    data.append(30)
+                    data.append(4)
                 elif i in song_400:
-                    data.append(40)
+                    data.append(8)
                 elif i in song_500:
-                    data.append(50)
+                    data.append(16)
                 elif i in song_600:
-                    data.append(60)
+                    data.append(32)
                 elif i in song_700:
-                    data.append(70)
+                    data.append(64)
                 elif i in song_800:
-                    data.append(80)
+                    data.append(128)
                 elif i in song_900:
-                    data.append(90)
+                    data.append(256)
                 elif i in song_1000:
-                    data.append(100)
+                    data.append(512)
                 elif i in song_1100:
-                    data.append(110)
+                    data.append(1024)
                 elif i in song_1200:
-                    data.append(120)
+                    data.append(2048)
                 elif i in song_1300:
-                    data.append(130)
+                    data.append(4096)
                 elif i in song_1400:
-                    data.append(140)
+                    data.append(4096)
                 elif i in song_1500:
-                    data.append(150)
+                    data.append(4096)
                 elif i in song_1600:
-                    data.append(160)
+                    data.append(4096)
                 elif i in song_1700:
-                    data.append(170)
+                    data.append(4096)
                 elif i in song_1800:
-                    data.append(180)
+                    data.append(4096)
                 elif i in song_1900:
-                    data.append(190)
+                    data.append(4096)
                 elif i in song_2000:
-                    data.append(200)
+                    data.append(4096)
                 else:
-                    data.append(210)
+                    data.append(4096)
             else:
                 if i in tag_100:
-                    data.append(110)
+                    data.append(1024)
                 elif i in tag_200:
-                    data.append(100)
+                    data.append(512)
                 elif i in tag_300:
-                    data.append(90)
+                    data.append(256)
                 elif i in tag_400:
-                    data.append(80)
+                    data.append(128)
                 elif i in tag_500:
-                    data.append(70)
+                    data.append(64)
                 elif i in tag_600:
-                    data.append(60)
+                    data.append(32)
                 elif i in tag_700:
-                    data.append(50)
+                    data.append(16)
                 elif i in tag_800:
-                    data.append(40)
+                    data.append(8)
                 elif i in tag_900:
-                    data.append(30)
+                    data.append(4)
                 elif i in tag_1000:
-                    data.append(20)
+                    data.append(2)
                 else:
-                    data.append(10)
+                    data.append(1)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -224,4 +222,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
