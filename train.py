@@ -102,19 +102,19 @@ class Train:
                 if i in popular_song[:50]:
                     data.append(120)
                 elif i in popular_song[50:150]:
-                    data.append(130)
+                    data.append(120)
                 elif i in popular_song[150:300]:
-                    data.append(150)
+                    data.append(120)
                 elif i in popular_song[300:500]:
-                    data.append(180)
+                    data.append(120)
                 elif i in popular_song[500:700]:
-                    data.append(220)
+                    data.append(120)
                 elif i in popular_song[700:1000]:
-                    data.append(270)
+                    data.append(120)
                 elif i in popular_song[1000:1500]:
-                    data.append(330)
+                    data.append(120)
                 elif i in popular_song[1500:2000]:
-                    data.append(400)
+                    data.append(120)
                 # elif i in popular_song[80:450]:
                 #     data.append(90)
                 # elif i in popular_song[90:550]:
@@ -140,7 +140,7 @@ class Train:
                 # elif i in popular_song[190:200]:
                 #     data.append(20)
                 else:
-                    data.append(480)
+                    data.append(120)
             else:
                 if i in popular_tag[:50]:
                     data.append(100)
@@ -192,3 +192,4 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
+    
