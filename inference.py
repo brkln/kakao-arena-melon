@@ -14,12 +14,7 @@ random.seed(0)
 class Infer:
     def _generate_answers(self, val):
         # 0
-        total_song = []
-        for l in train.songs:
-            total_song.extend(l)
-        total_song = set(total_song)
-
-        popular_num_song = len(total_song)
+        popular_num_song = 611814
         trial = 40
         # 1
         with open("popular_song_dict.pkl", "rb") as f:
