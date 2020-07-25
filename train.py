@@ -200,10 +200,11 @@ class Train:
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
         songtag_matrix = songtag_matrix[:, sorted(popular_song) + list(range(total_num, songtag_matrix.shape[1]))]
+        songtag_matrix = songtag_matrix.tocoo()
 
         sparse.save_npz('songtag_matrix_{}.npz'.format(trial), songtag_matrix)
 
-        model = implicit.als.AlternatingLeastSquares()
+        model = implicit.lmf.LogisticMatrixFactorization()
         model.fit(songtag_matrix.T)
 
         with open('model_{}.sav'.format(trial), 'wb') as f:
@@ -224,4 +225,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
