@@ -130,70 +130,70 @@ class Train:
         for i in cols:
             if i < total_num:
                 if i in song_100:
-                    data.append(1)
+                    data.append(10)
                 elif i in song_200:
-                    data.append(3)
+                    data.append(30)
                 elif i in song_300:
-                    data.append(5)
+                    data.append(50)
                 elif i in song_400:
-                    data.append(7)
+                    data.append(70)
                 elif i in song_500:
-                    data.append(9)
+                    data.append(90)
                 elif i in song_600:
-                    data.append(11)
+                    data.append(110)
                 elif i in song_700:
-                    data.append(13)
+                    data.append(130)
                 elif i in song_800:
-                    data.append(15)
+                    data.append(150)
                 elif i in song_900:
-                    data.append(17)
+                    data.append(170)
                 elif i in song_1000:
-                    data.append(19)
+                    data.append(190)
                 elif i in song_1100:
-                    data.append(21)
+                    data.append(210)
                 elif i in song_1200:
-                    data.append(23)
+                    data.append(230)
                 elif i in song_1300:
-                    data.append(25)
+                    data.append(250)
                 elif i in song_1400:
-                    data.append(27)
+                    data.append(270)
                 elif i in song_1500:
-                    data.append(29)
+                    data.append(290)
                 elif i in song_1600:
-                    data.append(31)
+                    data.append(310)
                 elif i in song_1700:
-                    data.append(33)
+                    data.append(330)
                 elif i in song_1800:
-                    data.append(35)
+                    data.append(350)
                 elif i in song_1900:
-                    data.append(37)
+                    data.append(370)
                 elif i in song_2000:
-                    data.append(39)
+                    data.append(390)
                 else:
-                    data.append(41)
+                    data.append(410)
             else:
                 if i in tag_100:
-                    data.append(21)
+                    data.append(210)
                 elif i in tag_200:
-                    data.append(19)
+                    data.append(190)
                 elif i in tag_300:
-                    data.append(17)
+                    data.append(170)
                 elif i in tag_400:
-                    data.append(15)
+                    data.append(150)
                 elif i in tag_500:
-                    data.append(13)
+                    data.append(130)
                 elif i in tag_600:
-                    data.append(11)
+                    data.append(110)
                 elif i in tag_700:
-                    data.append(9)
+                    data.append(90)
                 elif i in tag_800:
-                    data.append(7)
+                    data.append(70)
                 elif i in tag_900:
-                    data.append(5)
+                    data.append(50)
                 elif i in tag_1000:
-                    data.append(3)
+                    data.append(30)
                 else:
-                    data.append(1)
+                    data.append(10)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -222,4 +222,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
