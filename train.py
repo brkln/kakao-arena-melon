@@ -54,36 +54,6 @@ class Train:
         _, popular_song = most_popular(train_json, 'songs', popular_num_song)
         _, popular_tag = most_popular(train_json, 'tags', popular_num_tag)
         popular_tag = [train_tag_dict[i] for i in popular_tag]
-        song_100 = popular_song[:100]
-        song_200 = popular_song[100:200]
-        song_300 = popular_song[200:300]
-        song_400 = popular_song[300:400]
-        song_500 = popular_song[400:500]
-        song_600 = popular_song[500:600]
-        song_700 = popular_song[600:700]
-        song_800 = popular_song[700:800]
-        song_900 = popular_song[800:900]
-        song_1000 = popular_song[900:1000]
-        song_1100 = popular_song[1000:1100]
-        song_1200 = popular_song[1100:1200]
-        song_1300 = popular_song[1200:1300]
-        song_1400 = popular_song[1300:1400]
-        song_1500 = popular_song[1400:1500]
-        song_1600 = popular_song[1500:1600]
-        song_1700 = popular_song[1600:1700]
-        song_1800 = popular_song[1700:1800]
-        song_1900 = popular_song[1800:1900]
-        song_2000 = popular_song[1900:2000]
-        tag_100 = popular_tag[:100]
-        tag_200 = popular_tag[100:200]
-        tag_300 = popular_tag[200:300]
-        tag_400 = popular_tag[300:400]
-        tag_500 = popular_tag[400:500]
-        tag_600 = popular_tag[500:600]
-        tag_700 = popular_tag[600:700]
-        tag_800 = popular_tag[700:800]
-        tag_900 = popular_tag[800:900]
-        tag_1000 = popular_tag[900:1000]
 
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
@@ -129,71 +99,71 @@ class Train:
         data = []
         for i in cols:
             if i < total_num:
-                if i in song_100:
+                if i in popular_song[:1000]:
                     data.append(10)
-                elif i in song_200:
+                elif i in popular_song[1000:2000]:
+                    data.append(20)
+                elif i in popular_song[2000:3000]:
                     data.append(30)
-                elif i in song_300:
+                elif i in popular_song[3000:4000]:
+                    data.append(40)
+                elif i in popular_song[4000:5000]:
                     data.append(50)
-                elif i in song_400:
+                elif i in popular_song[5000:6000]:
+                    data.append(60)
+                elif i in popular_song[6000:7000]:
                     data.append(70)
-                elif i in song_500:
+                elif i in popular_song[7000:8000]:
+                    data.append(80)
+                elif i in popular_song[8000:9000]:
                     data.append(90)
-                elif i in song_600:
+                elif i in popular_song[9000:10000]:
+                    data.append(100)
+                elif i in popular_song[10000:11000]:
                     data.append(110)
-                elif i in song_700:
+                elif i in popular_song[11000:12000]:
+                    data.append(120)
+                elif i in popular_song[12000:13000]:
                     data.append(130)
-                elif i in song_800:
+                elif i in popular_song[13000:14000]:
+                    data.append(140)
+                elif i in popular_song[14000:15000]:
                     data.append(150)
-                elif i in song_900:
+                elif i in popular_song[15000:16000]:
+                    data.append(160)
+                elif i in popular_song[16000:17000]:
                     data.append(170)
-                elif i in song_1000:
+                elif i in popular_song[17000:18000]:
+                    data.append(180)
+                elif i in popular_song[18000:19000]:
                     data.append(190)
-                elif i in song_1100:
+                elif i in popular_song[19000:20000]:
+                    data.append(200)
+                else:
                     data.append(210)
-                elif i in song_1200:
-                    data.append(230)
-                elif i in song_1300:
-                    data.append(250)
-                elif i in song_1400:
-                    data.append(270)
-                elif i in song_1500:
-                    data.append(290)
-                elif i in song_1600:
-                    data.append(310)
-                elif i in song_1700:
-                    data.append(330)
-                elif i in song_1800:
-                    data.append(350)
-                elif i in song_1900:
-                    data.append(370)
-                elif i in song_2000:
-                    data.append(390)
-                else:
-                    data.append(410)
             else:
-                if i in tag_100:
-                    data.append(410)
-                elif i in tag_200:
-                    data.append(410)
-                elif i in tag_300:
-                    data.append(410)
-                elif i in tag_400:
-                    data.append(410)
-                elif i in tag_500:
-                    data.append(410)
-                elif i in tag_600:
-                    data.append(410)
-                elif i in tag_700:
-                    data.append(410)
-                elif i in tag_800:
-                    data.append(410)
-                elif i in tag_900:
-                    data.append(410)
-                elif i in tag_1000:
-                    data.append(410)
+                if i in popular_tag[:1000]:
+                    data.append(110)
+                elif i in popular_tag[1000:2000]:
+                    data.append(100)
+                elif i in popular_tag[2000:3000]:
+                    data.append(90)
+                elif i in popular_tag[3000:4000]:
+                    data.append(80)
+                elif i in popular_tag[4000:5000]:
+                    data.append(70)
+                elif i in popular_tag[5000:6000]:
+                    data.append(60)
+                elif i in popular_tag[6000:7000]:
+                    data.append(50)
+                elif i in popular_tag[7000:8000]:
+                    data.append(40)
+                elif i in popular_tag[8000:9000]:
+                    data.append(30)
+                elif i in popular_tag[9000:10000]:
+                    data.append(20)
                 else:
-                    data.append(410)
+                    data.append(10)
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
@@ -222,4 +192,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
