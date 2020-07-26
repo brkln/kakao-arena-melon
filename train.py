@@ -30,7 +30,7 @@ class Train:
         total_song = set(total_song)
 
         total_num = 707989
-        popular_num_song = len(total_song)
+        popular_num_song = 200000
         popular_num_tag = 10000
         trial = 40
         # 1

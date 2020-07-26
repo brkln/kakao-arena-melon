@@ -14,7 +14,7 @@ random.seed(0)
 class Infer:
     def _generate_answers(self, val):
         # 0
-        popular_num_song = 611814
+        popular_num_song = 200000
         trial = 40
         # 1
         with open("popular_song_dict.pkl", "rb") as f:
