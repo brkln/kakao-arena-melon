@@ -64,14 +64,8 @@ class Train:
 
         print("done 1")
 
-        tokenizer = KhaiiiApi()
-        train['token'] = train['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
-        train['token'] = train['token'].map(lambda x: [i[0] for i in list(filter(lambda x: x[0] in train_tag_unique, x))])
-        train['tags_refined'] = train.tags + train.token
-        train['tag_to_num'] = train['tags_refined'].map(lambda x: [train_tag_dict[i] for i in x])
+        train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
         train['songtag'] = train.songs + train.tag_to_num
-        # train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
-        # train['songtag'] = train.songs + train.tag_to_num
 
         tokenizer = KhaiiiApi()
         val['token'] = val['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
@@ -198,4 +192,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
