@@ -187,7 +187,7 @@ class Train:
                     else:
                         data.append(w19)
 
-            songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
+            songtag_matrix = tf.sparse.SparseTensor(indices = [rows, cols], values = data)
             songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
             songtag_matrix = songtag_matrix[:, sorted(popular_song) + list(range(total_num, songtag_matrix.shape[1]))]
 
