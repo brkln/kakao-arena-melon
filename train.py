@@ -30,7 +30,7 @@ class Train:
         total_song = set(total_song)
 
         total_num = 707989
-        popular_num_song = 200000
+        popular_num_song = 240000
         popular_num_tag = 10000
         trial = 40
         # 1
@@ -43,17 +43,10 @@ class Train:
         train_tag_dict = {}
         for i,j in enumerate(train_tag_unique):
             train_tag_dict[j] = i + total_num
-
-        popular_tag_dict = {}
-        for i,j in enumerate(train_tag_unique):
-            popular_tag_dict[i + popular_num_song] = j
-        
-        with open("popular_tag_dict.pkl", "wb") as f:
-            pickle.dump(popular_tag_dict, f)
         # 3
         _, popular_song = most_popular(train_json, 'songs', popular_num_song)
-        _, popular_tag = most_popular(train_json, 'tags', popular_num_tag)
-        popular_tag = [train_tag_dict[i] for i in popular_tag]
+        _, popular_tag_str = most_popular(train_json, 'tags', popular_num_tag)
+        popular_tag = [train_tag_dict[i] for i in sorted(popular_tag_str)]
 
         popular_song_dict = {}
         for i,j in enumerate(sorted(popular_song)):
@@ -61,6 +54,13 @@ class Train:
         
         with open("popular_song_dict.pkl", "wb") as f:
             pickle.dump(popular_song_dict, f)
+
+        popular_tag_dict = {}
+        for i,j in enumerate(sorted(popular_tag_str)):
+            popular_tag_dict[i + popular_num_song] = j
+        
+        with open("popular_tag_dict.pkl", "wb") as f:
+            pickle.dump(popular_tag_dict, f)
 
         print("done 1")
 
@@ -167,14 +167,14 @@ class Train:
 
         songtag_matrix = sparse.csr_matrix((data, (rows, cols)))
         songtag_matrix = songtag_matrix[sorted(set(trainval.id.values)), :]
-        songtag_matrix = songtag_matrix[:, sorted(popular_song) + list(range(total_num, songtag_matrix.shape[1]))]
+        songtag_matrix = songtag_matrix[:, sorted(popular_song) + sorted(popular_tag)]
 
-        sparse.save_npz('songtag_matrix_{}.npz'.format(trial), songtag_matrix)
+        sparse.save_npz('songtag_matrix.npz'.format(trial), songtag_matrix)
 
         model = implicit.als.AlternatingLeastSquares()
         model.fit(songtag_matrix.T)
 
-        with open('model_{}.sav'.format(trial), 'wb') as f:
+        with open('model.sav'.format(trial), 'wb') as f:
             pickle.dump(model, f)
 
         print("done 3")
