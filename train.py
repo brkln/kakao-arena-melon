@@ -108,21 +108,21 @@ class Train:
         for i in cols:
             if i < total_num:
                 if i in popular_song[:50]:
-                    data.append(10)
+                    data.append(120)
                 elif i in popular_song[50:150]:
-                    data.append(20)
+                    data.append(130)
                 elif i in popular_song[150:300]:
-                    data.append(30)
+                    data.append(140)
                 elif i in popular_song[300:500]:
-                    data.append(40)
+                    data.append(150)
                 elif i in popular_song[500:700]:
-                    data.append(50)
+                    data.append(160)
                 elif i in popular_song[700:1000]:
-                    data.append(60)
+                    data.append(170)
                 elif i in popular_song[1000:1500]:
-                    data.append(70)
+                    data.append(180)
                 elif i in popular_song[1500:2000]:
-                    data.append(80)
+                    data.append(190)
                 # elif i in popular_song[80:450]:
                 #     data.append(90)
                 # elif i in popular_song[90:550]:
@@ -148,7 +148,7 @@ class Train:
                 # elif i in popular_song[190:200]:
                 #     data.append(20)
                 else:
-                    data.append(90)
+                    data.append(200)
             else:
                 if i in popular_tag[:50]:
                     data.append(100)
@@ -168,8 +168,6 @@ class Train:
                     data.append(30)
                 elif i in popular_tag[2000:2500]:
                     data.append(20)
-                # elif i in popular_tag[90:100]:
-                #     data.append(20)
                 else:
                     data.append(10)
 
