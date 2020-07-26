@@ -29,9 +29,18 @@ class Train:
             total_song.extend(l)
         total_song = set(total_song)
 
+        total_tag = []
+        for l in train.tags:
+            total_tag.extend(l)
+        total_tag = set(total_tag)
+
+        songtag_length = [len(total_song), len(total_tag)]
+        with open("songtag_length.pkl", "wb") as f:
+            pickle.dump(songtag_length, f)
+
         total_num = 707989
-        popular_num_song = 240000
-        popular_num_tag = 10000
+        popular_num_song = songtag_length[0]
+        popular_num_tag = songtag_length[1]
         # 1
         train_tag = []
         for l in train.tags:
