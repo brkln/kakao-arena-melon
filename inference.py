@@ -14,8 +14,7 @@ random.seed(0)
 class Infer:
     def _generate_answers(self, val):
         # 0
-        popular_num_song = 615142
-        trial = 38
+        popular_num_song = 600000
         # 1
         with open("popular_song_dict.pkl", "rb") as f:
             popular_song_dict = pickle.load(f)
@@ -23,8 +22,8 @@ class Infer:
             popular_tag_dict = pickle.load(f)
         with open("trainval_id_dict.pkl", "rb") as f:
             trainval_id_dict = pickle.load(f)
-        songtag_matrix = sparse.load_npz('songtag_matrix_{}.npz'.format(trial))
-        with open('model_{}.sav'.format(trial), 'rb') as f:
+        songtag_matrix = sparse.load_npz('songtag_matrix.npz')
+        with open('model.sav', 'rb') as f:
             model = pickle.load(f)
 
         print("done 1")
@@ -59,4 +58,3 @@ class Infer:
 
 if __name__ == "__main__":
     fire.Fire(Infer)
-    
