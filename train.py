@@ -64,8 +64,14 @@ class Train:
 
         print("done 1")
 
-        train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
+        tokenizer = KhaiiiApi()
+        train['token'] = train['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
+        train['token'] = train['token'].map(lambda x: [i[0] for i in list(filter(lambda x: x[0] in train_tag_unique, x))])
+        train['tags_refined'] = train.tags + train.token
+        train['tag_to_num'] = train['tags_refined'].map(lambda x: [train_tag_dict[i] for i in x])
         train['songtag'] = train.songs + train.tag_to_num
+        # train['tag_to_num'] = train['tags'].map(lambda x: [train_tag_dict[i] for i in x])
+        # train['songtag'] = train.songs + train.tag_to_num
 
         tokenizer = KhaiiiApi()
         val['token'] = val['plylst_title'].map(lambda x: self.get_token(x, tokenizer))
@@ -100,21 +106,21 @@ class Train:
         for i in cols:
             if i < total_num:
                 if i in popular_song[:50]:
-                    data.append(120)
+                    data.append(10)
                 elif i in popular_song[50:150]:
-                    data.append(120)
+                    data.append(20)
                 elif i in popular_song[150:300]:
-                    data.append(120)
+                    data.append(30)
                 elif i in popular_song[300:500]:
-                    data.append(120)
+                    data.append(40)
                 elif i in popular_song[500:700]:
-                    data.append(120)
+                    data.append(50)
                 elif i in popular_song[700:1000]:
-                    data.append(120)
+                    data.append(60)
                 elif i in popular_song[1000:1500]:
-                    data.append(120)
+                    data.append(70)
                 elif i in popular_song[1500:2000]:
-                    data.append(120)
+                    data.append(80)
                 # elif i in popular_song[80:450]:
                 #     data.append(90)
                 # elif i in popular_song[90:550]:
@@ -140,7 +146,7 @@ class Train:
                 # elif i in popular_song[190:200]:
                 #     data.append(20)
                 else:
-                    data.append(120)
+                    data.append(90)
             else:
                 if i in popular_tag[:50]:
                     data.append(100)
@@ -192,4 +198,3 @@ class Train:
 
 if __name__ == "__main__":
     fire.Fire(Train)
-    
