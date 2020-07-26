@@ -9,9 +9,7 @@ __pycache__
 *.ipynb
 .ipynb_checkpoints
 
-popular_song_dict.pkl
-popular_tag_dict.pkl
-trainval_id_dict.pkl
+*.pkl
 *.npz
 *.sav
 *.json
