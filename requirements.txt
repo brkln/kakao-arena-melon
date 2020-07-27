@@ -1,0 +1,7 @@
+fire
+tqdm
+numpy
+pandas
+scipy
+implicit
+khaiii
