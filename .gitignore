@@ -13,3 +13,8 @@ __pycache__
 *.npz
 *.sav
 *.json
+
+split_data.py
+evaluate.py
+most_popular.py
+genre_most_popular.py
