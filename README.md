@@ -39,4 +39,5 @@ $> python inference.py run \
 ```
 
 ## Source
-* `arena_util.py` is provided by Kakao Corp.
+- `arena_util.py` is provided by Kakao Corp.
+- Function `get_token` in `train.py` is provided in https://arena.kakao.com/forum/topics/226
