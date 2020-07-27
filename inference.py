@@ -12,8 +12,11 @@ from arena_util import remove_seen
 random.seed(0)
 
 class Infer:
+
+
     def _generate_answers(self, val):
-        # 0
+
+        # Loading all the files required for recommendation
         with open("songtag_length.pkl", "rb") as f:
             songtag_length = pickle.load(f)
         with open("popular_song_dict.pkl", "rb") as f:
@@ -26,18 +29,29 @@ class Infer:
         with open('model.sav', 'rb') as f:
             model = pickle.load(f)
 
+        # Setting the number of popular songs equal to train.py
         popular_num_song = songtag_length[0]
 
-        print("done 1")
 
+        ###########################
+        print("Finished 1st step!")
+        ###########################
+
+
+        # Making recommendation lists (takes approximately 50 minutes)
         song_fill = []
         tag_fill = []
         for j in [trainval_id_dict[i] for i in val.id.values]:
             song_fill.append([popular_song_dict[k] for k,_ in model.recommend(j, songtag_matrix, filter_items = range(popular_num_song, songtag_matrix.shape[1]), N = 200)])
             tag_fill.append([popular_tag_dict[k] for k in [i for i,_ in model.rank_items(j, songtag_matrix, list(range(popular_num_song, songtag_matrix.shape[1])))[:15]]])
+        
+        
+        ###########################
+        print("Finished 2nd step!")
+        ###########################
 
-        print("done 2")
-    
+
+        # Creating the final dictionary for results.json
         answers = []
         for i in range(len(val)):
             answers.append({
@@ -46,9 +60,15 @@ class Infer:
                 "tags": remove_seen(val.tags.values[i], tag_fill[i])[:10]
             })
 
-        print("done 3")
+
+        ###########################
+        print("Finished 3rd step!")
+        print("Finished writing answers!")
+        ###########################
+
 
         return answers
+
 
     def run(self, question_fname):
         print("Loading question file...")
