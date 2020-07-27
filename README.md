@@ -1,5 +1,4 @@
-# Kakao Arena - Melon Playlist Continuation
-# (Solution by brkln)
+# Kakao Arena - Melon Playlist Continuation (Solution by brkln)
 This repository is for Melon Playlist Continuation, the 3rd machine learning challenge of Kakao Arena.
 
 ## Environment
