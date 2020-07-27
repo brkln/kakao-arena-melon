@@ -14,7 +14,7 @@ Thumbs.db
 *.pkl
 *.npz
 *.sav
-*.json
+results_*.json
 
 split_data.py
 evaluate.py
