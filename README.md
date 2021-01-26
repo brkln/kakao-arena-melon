@@ -26,13 +26,13 @@ $> tree
 │   └── train.json
 └── train.py
 ```
-3. `train.py` is run by the code below. Without GPU, it takes approximately 8 minutes to run the code. After running the code, **6 files** will be saved in the directory: `songtag_length.pkl`, `popular_song_dict.pkl`, `popular_tag_dict.pkl`, `trainval_id_dict.pkl`, `songtag_matrix.npz`, `model.sav`.
+3. `train.py` is run by the code below. After running the code, **6 files** will be saved in the directory: `songtag_length.pkl`, `popular_song_dict.pkl`, `popular_tag_dict.pkl`, `trainval_id_dict.pkl`, `songtag_matrix.npz`, `model.sav`.
 ```bash
 $> python train.py run \    
         --train_fname=res/train.json \
         --question_fname=res/test.json
 ```
-4. `inference.py` is run by the code below. It takes approximately 20 minutes to run the code. After running the code, the result file will be saved in the following directory: `arena_data/results/results.json`.
+4. `inference.py` is run by the code below. After running the code, the result file will be saved in the following directory: `arena_data/results/results.json`.
 ```bash
 $> python inference.py run \
         --question_fname=res/test.json
